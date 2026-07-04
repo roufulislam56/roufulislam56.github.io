@@ -158,3 +158,32 @@ nav a{
 .filter-buttons button:hover{
     background:#084298;
 }
+#shopping-cart{
+    margin:50px;
+    padding:30px;
+    background:#ffffff;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+#cartItems{
+    list-style:none;
+    padding:0;
+}
+
+#cartItems li{
+    display:flex;
+    justify-content:space-between;
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+#shopping-cart button{
+    margin-top:20px;
+    background:#198754;
+    color:white;
+    padding:12px 30px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
