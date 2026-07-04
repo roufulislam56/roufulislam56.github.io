@@ -57,3 +57,48 @@ product.style.display = text.includes(value) ? "block" : "none";
 });
 
 });
+let cart = [];
+let total = 0;
+
+function addToCart(name, price){
+
+    cart.push({name,price});
+
+    total += price;
+
+    document.getElementById("cartCount").innerHTML = cart.length;
+
+    updateCart();
+}
+
+function updateCart(){
+
+    let list = document.getElementById("cartItems");
+
+    list.innerHTML="";
+
+    cart.forEach(function(item){
+
+        list.innerHTML += `
+        <li>
+            ${item.name}
+            <strong>৳${item.price}</strong>
+        </li>`;
+    });
+
+    document.getElementById("totalPrice").innerHTML = total;
+}
+
+function checkout(){
+
+    if(cart.length==0){
+
+        alert("Your cart is empty");
+
+    }else{
+
+        alert("Thank you for your order!");
+
+    }
+
+}
