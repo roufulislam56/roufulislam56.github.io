@@ -1,68 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Easy Shop Loaded Successfully!");
-});
-function showAll(){
+// Shopping Cart
 
-document.querySelectorAll(".product").forEach(function(item){
-
-item.style.display="block";
-
-});
-
-}
-
-function showMen(){
-
-document.querySelectorAll(".product").forEach(function(item){
-
-item.style.display="none";
-
-});
-
-document.querySelectorAll(".men").forEach(function(item){
-
-item.style.display="block";
-
-});
-
-}
-
-function showWomen(){
-
-document.querySelectorAll(".product").forEach(function(item){
-
-item.style.display="none";
-
-});
-
-document.querySelectorAll(".women").forEach(function(item){
-
-item.style.display="block";
-
-});
-
-}
-const search = document.getElementById("searchInput");
-
-search.addEventListener("keyup", function(){
-
-let value = search.value.toLowerCase();
-
-document.querySelectorAll(".product").forEach(function(product){
-
-let text = product.innerText.toLowerCase();
-
-product.style.display = text.includes(value) ? "block" : "none";
-
-});
-
-});
 let cart = [];
 let total = 0;
 
+// Add To Cart
+
 function addToCart(name, price){
 
-    cart.push({name,price});
+    cart.push({
+        name:name,
+        price:price
+    });
 
     total += price;
 
@@ -71,34 +19,92 @@ function addToCart(name, price){
     updateCart();
 }
 
+// Update Cart
+
 function updateCart(){
 
-    let list = document.getElementById("cartItems");
+    const list = document.getElementById("cartItems");
 
-    list.innerHTML="";
+    list.innerHTML = "";
 
-    cart.forEach(function(item){
+    cart.forEach(function(item,index){
 
         list.innerHTML += `
         <li>
             ${item.name}
-            <strong>৳${item.price}</strong>
-        </li>`;
+            <span>
+                ৳${item.price}
+                <button onclick="removeItem(${index})">❌</button>
+            </span>
+        </li>
+        `;
+
     });
 
     document.getElementById("totalPrice").innerHTML = total;
+
 }
+
+// Remove Item
+
+function removeItem(index){
+
+    total -= cart[index].price;
+
+    cart.splice(index,1);
+
+    document.getElementById("cartCount").innerHTML = cart.length;
+
+    updateCart();
+
+}
+
+// Checkout
 
 function checkout(){
 
-    if(cart.length==0){
+    if(cart.length===0){
 
-        alert("Your cart is empty");
+        alert("Your cart is empty!");
 
-    }else{
-
-        alert("Thank you for your order!");
+        return;
 
     }
 
+    alert("✅ Thank you for shopping with Easy Shop!");
+
+    cart=[];
+
+    total=0;
+
+    updateCart();
+
+    document.getElementById("cartCount").innerHTML=0;
+
 }
+
+// Search Product
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const search=document.getElementById("searchInput");
+
+if(search){
+
+search.addEventListener("keyup",function(){
+
+let value=search.value.toLowerCase();
+
+document.querySelectorAll(".product").forEach(function(product){
+
+let text=product.innerText.toLowerCase();
+
+product.style.display=text.includes(value)?"block":"none";
+
+});
+
+});
+
+}
+
+});
